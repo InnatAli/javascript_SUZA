@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Validation</title>
+<style>
+.error { color: red; }
+table {
+  width: 50%;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+.buttn button{
+    margin-right: 300px;
+}
+.buttons {
+text-align: left;
+}
+.buttons button {
+    margin-left: 200px;
+}
+</style>
+</head>
+<body>
+
+<form id="myForm">
+  <table>
+    <th colspan="2">Test JavaScript Form Validation</th>
+    <tr>
+      <td><label for="name">Name</label></td>
+      <td><input type="text" id="name" name="name"></td>
+      <td><span id="nameError" class="error"></span></td>
+    </tr>
+    <tr>
+      <td><label for="address">Address</label></td>
+      <td colspan="2"><input type="text" id="address" name="address"></td>
+    </tr>
+    <tr>
+      <td><label for="zip">Zip code</label></td>
+      <td><input type="text" id="zip" name="zip"></td>
+      <td><span id="zipError" class="error"></span></td>
+    </tr>
+    <tr>
+      <td><label for="country">Country</label></td>
+      <td colspan="2">
+        <select id="country" name="country">
+          <option value="">Please select...</option>
+          <option value="">Tanzania</option>
+          <option value="">Nigeria</option>
+          <option value="">Turkey</option>
+          <option value="">Oman</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label>Gender</label></td>
+      <td colspan="2">
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+      </td>
+    </tr>
+    <tr>
+      <td><label>Preferences</label></td>
+      <td colspan="2">
+        <input type="checkbox" id="red" name="preferences" value="red">
+        <label for="red">Red</label>
+        <input type="checkbox" id="green" name="preferences" value="green">
+        <label for="green">Green</label>
+        <input type="checkbox" id="blue" name="preferences" value="blue">
+        <label for="blue">Blue</label>
+        <span id="preferencesError" class="error"></span>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="phone">Phone</label></td>
+      <td colspan="2"><input type="text" id="phone" name="phone"></td>
+    </tr>
+    <tr>
+      <td><label for="email">Email</label></td>
+      <td colspan="2"><input type="email" id="email" name="email"></td>
+    </tr>
+    <tr>
+      <td><label for="password">Password</label></td>
+      <td colspan="2"><input type="password" id="password" name="password"></td>
+    </tr>
+    <tr>
+      <td><label for="verifyPassword">Verify password</label></td>
+      <td colspan="2"><input type="password" id="verifyPassword" name="verifyPassword"></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="buttons">
+        <button type="button" onclick="validateForm()">Send</button>
+        </td>
+        <td class="buttn">
+        <button type="button" onclick="clearForm()">Clear</button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<script>
+function validateForm() {
+  var name = document.getElementById("name").value;
+  var zip = document.getElementById("zip").value;
+  var country = document.getElementById("country").value;
+  var gender = document.querySelector('input[name="gender"]:checked');
+  var preferences = document.querySelectorAll('input[name="preferences"]:checked');
+  var password = document.getElementById("password").value;
+  var verifyPassword = document.getElementById("verifyPassword").value;
+
+  document.getElementById("nameError").textContent = "";
+  document.getElementById("zipError").textContent = "";
+  document.getElementById("preferencesError").textContent = "";
+
+  if (name === "") {
+    document.getElementById("nameError").textContent = "Please enter your Name!";
+    return;
+  }
+  if (zip === "") {
+    document.getElementById("zipError").textContent = "Zip code is mandatory";
+    return;
+  }
+  if (country === "") {
+    alert("Please select a country");
+    return;
+  }
+  if (!gender) {
+    alert("Please select a gender");
+    return;
+  }
+  if (preferences.length < 2) {
+    document.getElementById("preferencesError").textContent = "Select at least two preferences";
+    return;
+  }
+  if (password.length < 6 || password.length > 8) {
+    alert("Password must be 6 to 8 characters long");
+    return;
+  }
+  if (password !== verifyPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  if (name.length > 20) {
+    document.getElementById("nameError").textContent = "Name cannot exceed 20 characters";
+    return;
+  }
+
+  document.getElementById("myForm").submit(); 
+}
+
+function clearForm() {
+  document.getElementById("myForm").reset();
+}
+</script>
+
+</body>
+</html>

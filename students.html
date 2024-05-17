@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration Form</title>
+    <style>
+    
+        body {
+            font-family: Arial, sans-serif;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+    <script>
+        
+        function validateForm() {
+          
+            const mobileNumber = document.getElementById("mobile").value;
+            if (mobileNumber.length !== 10 || isNaN(mobileNumber)) {
+                alert("Mobile number should be exactly 10 digits.");
+                return false;
+            }
+
+            const registerNumber = document.getElementById("registerNumber").value;
+            const registerNumberPattern = /^[A-Za-z0-9]+$/;
+            if (!registerNumberPattern.test(registerNumber)) {
+                alert("Register number should have alphabets and numbers only.");
+                return false;
+            }
+            const studentName = document.getElementById("studentName").value;
+            const namePattern = /^[A-Za-z\s]{1,30}$/;
+            if (!namePattern.test(studentName)) {
+                alert("Name should not exceed 30 characters and can contain only alphabets.");
+                return false;
+            }
+
+            const permanentCheckbox = document.getElementById("permanentCheckbox");
+            const permanentAddress = document.getElementById("permanentAddress");
+            const temporaryAddress = document.getElementById("temporaryAddress");
+            if (permanentCheckbox.checked) {
+                permanentAddress.value = temporaryAddress.value;
+                permanentAddress.disabled = true;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Student Registration Form</h1>
+    <form action="#" onsubmit="return validateForm();">
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" name="studentName" required><br>
+
+        <label for="registerNumber">Register Number:</label>
+        <input type="text" id="registerNumber" name="registerNumber" required><br>
+
+        <label for="temporaryAddress">Temporary Address:</label>
+        <textarea id="temporaryAddress" name="temporaryAddress" required></textarea><br>
+
+        <label for="permanentCheckbox">
+            <input type="checkbox" id="permanentCheckbox"> Permanent address is same as temporary address
+        </label>
+        <br>
+
+        <label for="permanentAddress">Permanent Address:</label>
+        <textarea id="permanentAddress" name="permanentAddress"></textarea><br>
+
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" id="mobile" name="mobile" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
